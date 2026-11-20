@@ -27,9 +27,9 @@ class Status:
 
     def __getattr__(self, name: str):
         try:
-            self.data[name]
-        except:
-            return self.__getattr__(name)
+            return self.data[name]
+        except KeyError:
+            return None
 
     def get(self, name):
         return self.data.get(name)
