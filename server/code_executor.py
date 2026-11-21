@@ -91,7 +91,12 @@ os.chdir("{task_path}")
             exec(code,namespace)
             test_func = namespace[test_func_name]
             result,data = test_func()
-            json.dumps(data)
+            # Validate serializability — gracefully handle numpy/pandas types
+            try:
+                json.dumps(data)
+            except (TypeError, ValueError):
+                # Convert non-serializable objects to repr for downstream processing
+                data = repr(data)
         except TypeError as e:
             excepted = True
             result, data = False,repr(e)
