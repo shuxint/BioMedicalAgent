@@ -407,7 +407,7 @@ class ToolDescriptor(BaseAgent):
         tools = self.task.status.tools
         key = "score" if not self.task.status.rescored else "re_score"
         for tool in tools:
-            if "description" in tool: continue
+            if "description" in tools[tool]: continue
             if tools[tool][key] >= self.config.HIGHSCORE_TOOL_THRESHOLD:
                 result.append(tool)
         return result
